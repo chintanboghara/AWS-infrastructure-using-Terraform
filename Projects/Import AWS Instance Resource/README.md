@@ -13,3 +13,9 @@
    ```
 
    This will create a new file `generated_resources.tf`, which will contain the configuration of all the existing resources as determined by Terraform's state and plan.
+
+**To import an existing AWS EC2 instance (Create a statefile and (No changes) Matches the configuration.) into Terraform configuration**
+
+```bash
+terraform import aws_instance.example i-0fea71675ca7baadd
+```
