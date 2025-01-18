@@ -11,8 +11,6 @@
 - **`terraform destroy`**  
   Destroys all Terraform-managed infrastructure.
 
----
-
 ### **Configuration Management**
 - **`terraform validate`**  
   Validates the configuration files for syntax errors or issues.
@@ -25,8 +23,6 @@
 
 - **`terraform untaint [resource_name]`**  
   Removes the taint from a resource.
-
----
 
 ### **State Management**
 - **`terraform state list`**  
@@ -41,8 +37,6 @@
 - **`terraform state rm [resource_name]`**  
   Removes a resource from the Terraform state file without destroying it.
 
----
-
 ### **Workspaces**
 - **`terraform workspace list`**  
   Lists all available workspaces.
@@ -56,8 +50,6 @@
 - **`terraform workspace delete [workspace_name]`**  
   Deletes the specified workspace.
 
----
-
 ### **Debugging and Inspection**
 - **`terraform show`**  
   Displays the Terraform state or a plan file.
@@ -70,8 +62,6 @@
 
 - **`terraform console`**  
   Opens an interactive console for evaluating expressions and queries.
-
----
 
 ### **Advanced Commands**
 - **`terraform import [address] [id]`**  
