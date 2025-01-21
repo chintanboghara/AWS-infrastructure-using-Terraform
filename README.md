@@ -1,77 +1,77 @@
-### **Basic Commands**
-- **`terraform init`**  
-  Prepares the working directory for other commands by downloading the necessary provider plugins.
+## Core Commands
 
-- **`terraform plan`**  
-  Creates an execution plan, showing what actions Terraform will take to match the desired state.
+- **`terraform init`**: Initializes a working directory containing Terraform configuration files. This command downloads the necessary provider plugins and sets up the backend.
 
-- **`terraform apply`**  
-  Applies the changes required to reach the desired state of the configuration.
+- **`terraform plan`**: Creates an execution plan, showing what actions Terraform will take to reach the desired state specified in the configuration files.
 
-- **`terraform destroy`**  
-  Destroys all Terraform-managed infrastructure.
+- **`terraform apply`**: Applies the changes required to reach the desired state of the configuration. This command will prompt for approval before making any changes unless the `-auto-approve` flag is used.
 
-### **Configuration Management**
-- **`terraform validate`**  
-  Validates the configuration files for syntax errors or issues.
+- **`terraform destroy`**: Destroys all the resources managed by the Terraform configuration. This command will prompt for approval before destroying any resources unless the `-auto-approve` flag is used.
 
-- **`terraform fmt`**  
-  Formats Terraform files to adhere to consistent style conventions.
+- **`terraform validate`**: Validates the configuration files in the current directory. It checks for syntax errors and ensures that the configuration is internally consistent.
 
-- **`terraform taint [resource_name]`**  
-  Marks a resource for recreation during the next `terraform apply`.
+- **`terraform fmt`**: Rewrites Terraform configuration files to a canonical format and style. This command helps maintain consistency across your codebase.
 
-- **`terraform untaint [resource_name]`**  
-  Removes the taint from a resource.
+- **`terraform show`**: Displays the current state or a saved plan in a human-readable format.
 
-### **State Management**
-- **`terraform state list`**  
-  Lists resources in the current Terraform state.
+- **`terraform output`**: Displays the output values from the Terraform state file.
 
-- **`terraform state show [resource_name]`**  
-  Displays detailed information about a specific resource in the state.
+- **`terraform refresh`**: Updates the state file with the real-world state of the infrastructure. This command is rarely used directly, as `terraform apply` and `terraform plan` automatically refresh the state.
 
-- **`terraform state mv [source] [destination]`**  
-  Moves resources within the state file.
+## State Management Commands
 
-- **`terraform state rm [resource_name]`**  
-  Removes a resource from the Terraform state file without destroying it.
+- **`terraform state list`**: Lists all the resources in the Terraform state.
 
-### **Workspaces**
-- **`terraform workspace list`**  
-  Lists all available workspaces.
+- **`terraform state show <resource>`**: Shows the attributes of a single resource in the Terraform state.
 
-- **`terraform workspace new [workspace_name]`**  
-  Creates a new workspace.
+- **`terraform state pull`**: Pulls the current state and outputs it to stdout.
 
-- **`terraform workspace select [workspace_name]`**  
-  Switches to the specified workspace.
+- **`terraform state push`**: Updates the remote state with a local state file.
 
-- **`terraform workspace delete [workspace_name]`**  
-  Deletes the specified workspace.
+- **`terraform state mv`**: Moves an item in the state, which can be useful for refactoring.
 
-### **Debugging and Inspection**
-- **`terraform show`**  
-  Displays the Terraform state or a plan file.
+- **`terraform state rm`**: Removes an item from the state, which can be useful for cleaning up state files.
 
-- **`terraform output`**  
-  Extracts and displays output variables from the state.
+- **`terraform import <resource> <id>`**: Imports an existing resource into the Terraform state.
 
-- **`terraform graph`**  
-  Generates a visual graph of the resources.
+## Workspace Commands
 
-- **`terraform console`**  
-  Opens an interactive console for evaluating expressions and queries.
+- **`terraform workspace new <name>`**: Creates a new workspace.
 
-### **Advanced Commands**
-- **`terraform import [address] [id]`**  
-  Imports existing infrastructure into Terraform state.
+- **`terraform workspace select <name>`**: Switches to the specified workspace.
 
-- **`terraform lock`**  
-  Locks the Terraform state file to prevent concurrent updates (when using backends that support locking).
+- **`terraform workspace list`**: Lists all workspaces.
 
-- **`terraform unlock`**  
-  Unlocks the state file.
+- **`terraform workspace delete <name>`**: Deletes the specified workspace.
 
-- **`terraform providers`**  
-  Displays the provider versions required by the configuration.
+## Utility Commands
+
+- **`terraform version`**: Displays the current version of Terraform and all installed providers.
+
+- **`terraform get`**: Downloads and installs modules needed for the configuration.
+
+- **`terraform graph`**: Generates a visual representation of the Terraform resource graph.
+
+- **`terraform taint <resource>`**: Marks a resource as tainted, forcing it to be destroyed and recreated on the next `terraform apply`.
+
+- **`terraform untaint <resource>`**: Removes the taint from a resource.
+
+## Advanced Commands
+
+- **`terraform force-unlock <lock-id>`**: Manually unlocks the state for the specified lock ID.
+
+- **`terraform console`**: Launches an interactive console for evaluating Terraform expressions.
+
+- **`terraform providers`**: Displays information about the providers used in the configuration.
+
+- **`terraform state replace-provider`**: Replaces the provider in the state file.
+
+## Environment Variables
+
+- **`TF_LOG`**: Sets the log level (e.g., `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`).
+
+- **`TF_VAR_<variable_name>`**: Sets a Terraform variable from the environment.
+
+- **`TF_CLI_ARGS`**: Passes additional arguments to Terraform commands.
+
+- **`TF_IN_AUTOMATION`**: Indicates that Terraform is running in an automated environment, which can suppress certain prompts.
