@@ -1,77 +1,180 @@
 ## Core Commands
 
-- **`terraform init`**: Initializes a working directory containing Terraform configuration files. This command downloads the necessary provider plugins and sets up the backend.
+- `terraform init`: Initializes a working directory containing Terraform configuration files. Downloads required providers and configures the backend.  
+  ```bash
+  terraform init
+  ```
 
-- **`terraform plan`**: Creates an execution plan, showing what actions Terraform will take to reach the desired state specified in the configuration files.
+- `terraform plan`: Generates an execution plan showing proposed infrastructure changes.  
+  ```bash
+  terraform plan
+  ```
 
-- **`terraform apply`**: Applies the changes required to reach the desired state of the configuration. This command will prompt for approval before making any changes unless the `-auto-approve` flag is used.
+- `terraform apply`: Applies changes to reach the desired infrastructure state. Use `-auto-approve` to skip confirmation.  
+  ```bash
+  terraform apply  # Interactive mode
+  terraform apply -auto-approve  # Skip prompt
+  ```
 
-- **`terraform destroy`**: Destroys all the resources managed by the Terraform configuration. This command will prompt for approval before destroying any resources unless the `-auto-approve` flag is used.
+- `terraform destroy`: Destroys all managed infrastructure. Use with caution!  
+  ```bash
+  terraform destroy  # Interactive mode
+  terraform destroy -auto-approve  # Skip prompt
+  ```
 
-- **`terraform validate`**: Validates the configuration files in the current directory. It checks for syntax errors and ensures that the configuration is internally consistent.
+- `terraform validate`: Checks configuration files for syntax and consistency.  
+  ```bash
+  terraform validate
+  ```
 
-- **`terraform fmt`**: Rewrites Terraform configuration files to a canonical format and style. This command helps maintain consistency across your codebase.
+- `terraform fmt`: Rewrites configuration files to a standardized format.  
+  ```bash
+  terraform fmt
+  ```
 
-- **`terraform show`**: Displays the current state or a saved plan in a human-readable format.
+- `terraform show`: Displays the current state or a saved plan in readable format.  
+  ```bash
+  terraform show
+  ```
 
-- **`terraform output`**: Displays the output values from the Terraform state file.
+- `terraform output`: Prints output values from the state file.  
+  ```bash
+  terraform output
+  ```
 
-- **`terraform refresh`**: Updates the state file with the real-world state of the infrastructure. This command is rarely used directly, as `terraform apply` and `terraform plan` automatically refresh the state.
+- `terraform refresh`: Syncs the state file with real-world infrastructure (rarely used directly).  
+  ```bash
+  terraform refresh
+  ```
 
 ## State Management Commands
 
-- **`terraform state list`**: Lists all the resources in the Terraform state.
+- `terraform state list`: Lists resources tracked in the state.  
+  ```bash
+  terraform state list
+  ```
 
-- **`terraform state show <resource>`**: Shows the attributes of a single resource in the Terraform state.
+- `terraform state show <resource>`: Displays details of a specific resource. Replace `<resource>` with the resource address.  
+  ```bash
+  terraform state show aws_instance.web
+  ```
 
-- **`terraform state pull`**: Pulls the current state and outputs it to stdout.
+- `terraform state pull`: Outputs the raw state data.  
+  ```bash
+  terraform state pull > state.json
+  ```
 
-- **`terraform state push`**: Updates the remote state with a local state file.
+- `terraform state push`: Overwrites remote state with a local state file (**use with caution**).  
+  ```bash
+  terraform state push terraform.tfstate
+  ```
 
-- **`terraform state mv`**: Moves an item in the state, which can be useful for refactoring.
+- `terraform state mv`: Moves a resource within the state (useful for refactoring).  
+  ```bash
+  terraform state mv aws_instance.old aws_instance.new
+  ```
 
-- **`terraform state rm`**: Removes an item from the state, which can be useful for cleaning up state files.
+- `terraform state rm`: Removes a resource from the state (does not destroy the resource).  
+  ```bash
+  terraform state rm aws_instance.web
+  ```
 
-- **`terraform import <resource> <id>`**: Imports an existing resource into the Terraform state.
+- `terraform import <resource> <id>`: Imports existing infrastructure into the state.  
+  ```bash
+  terraform import aws_instance.web i-1234567890abcdef0
+  ```
 
 ## Workspace Commands
 
-- **`terraform workspace new <name>`**: Creates a new workspace.
+- `terraform workspace new <name>`: Creates a new workspace.  
+  ```bash
+  terraform workspace new dev
+  ```
 
-- **`terraform workspace select <name>`**: Switches to the specified workspace.
+- `terraform workspace select <name>`: Switches to a workspace.  
+  ```bash
+  terraform workspace select prod
+  ```
 
-- **`terraform workspace list`**: Lists all workspaces.
+- `terraform workspace list`: Lists all workspaces.  
+  ```bash
+  terraform workspace list
+  ```
 
-- **`terraform workspace delete <name>`**: Deletes the specified workspace.
+- `terraform workspace delete <name>`: Deletes a workspace.  
+  ```bash
+  terraform workspace delete staging
+  ```
 
 ## Utility Commands
 
-- **`terraform version`**: Displays the current version of Terraform and all installed providers.
+- `terraform version`: Shows Terraform and provider versions.  
+  ```bash
+  terraform version
+  ```
 
-- **`terraform get`**: Downloads and installs modules needed for the configuration.
+- `terraform get`: Downloads and updates modules.  
+  ```bash
+  terraform get
+  ```
 
-- **`terraform graph`**: Generates a visual representation of the Terraform resource graph.
+- `terraform graph`: Generates a visual dependency graph.  
+  ```bash
+  terraform graph | dot -Tsvg > graph.svg
+  ```
 
-- **`terraform taint <resource>`**: Marks a resource as tainted, forcing it to be destroyed and recreated on the next `terraform apply`.
+- `terraform taint <resource>`: Forces recreation of a resource on the next apply.  
+  ```bash
+  terraform taint aws_instance.web
+  ```
 
-- **`terraform untaint <resource>`**: Removes the taint from a resource.
+- `terraform untaint <resource>`: Removes taint from a resource.  
+  ```bash
+  terraform untaint aws_instance.web
+  ```
 
 ## Advanced Commands
 
-- **`terraform force-unlock <lock-id>`**: Manually unlocks the state for the specified lock ID.
+- `terraform force-unlock <lock-id>`: Manually releases a stuck state lock.  
+  ```bash
+  terraform force-unlock 3a0d98d0-0d1a-2345-6789-abc123def456
+  ```
 
-- **`terraform console`**: Launches an interactive console for evaluating Terraform expressions.
+- `terraform console`: Launches an interactive console for testing expressions.  
+  ```bash
+  terraform console
+  ```
 
-- **`terraform providers`**: Displays information about the providers used in the configuration.
+- `terraform providers`: Displays provider configurations.  
+  ```bash
+  terraform providers
+  ```
 
-- **`terraform state replace-provider`**: Replaces the provider in the state file.
+- `terraform state replace-provider`: Updates the provider in the state file.  
+  ```bash
+  terraform state replace-provider hashicorp/aws registry.acme.corp/acme/aws
+  ```
 
 ## Environment Variables
 
-- **`TF_LOG`**: Sets the log level (e.g., `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`).
+- `TF_LOG`: Sets logging verbosity (e.g., `TRACE`, `DEBUG`, `INFO`).  
+  ```bash
+  export TF_LOG=DEBUG
+  ```
 
-- **`TF_VAR_<variable_name>`**: Sets a Terraform variable from the environment.
+- `TF_VAR_<variable_name>`: Sets a Terraform variable via the environment.  
+  ```bash
+  export TF_VAR_region="us-west-2"
+  ```
 
-- **`TF_CLI_ARGS`**: Passes additional arguments to Terraform commands.
+- `TF_CLI_ARGS`: Passes global CLI arguments.  
+  ```bash
+  export TF_CLI_ARGS="-input=false"
+  ```
 
-- **`TF_IN_AUTOMATION`**: Indicates that Terraform is running in an automated environment, which can suppress certain prompts.
+- `TF_IN_AUTOMATION`: Suppresses prompts in CI/CD environments.  
+  ```bash
+  export TF_IN_AUTOMATION=true
+  ```
+
+> **Note**: Always review Terraform plans carefully before applying changes. Use destructive commands like `destroy` and `state push` with caution.
